@@ -41,6 +41,27 @@ class InstallationServiceTest {
     }
 
     @Test
+    void scheduleInstallation() {
+        AddressEntity address = addressRepository.save(new AddressEntity(
+                "street",
+                "city",
+                "state",
+                "11-111",
+                "Poland"
+        ));
+
+        ProductEntity product = productRepository.save(new ProductEntity(
+                "name",
+                1L
+        ));
+
+        InstallationEntity installation = installationService.schedule(address.getId(), product.getId());
+        assertEquals(InstallationStatus.SCHEDULED, installation.getStatus());
+        assertEquals(product.getId(), installation.getProductId());
+        assertEquals(address.getId(), installation.getAddressId());
+    }
+
+    @Test
     void shouldCheckInstallationLimit() {
         AddressEntity address = addressRepository.save(new AddressEntity(
                 "street",
