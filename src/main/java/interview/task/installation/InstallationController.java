@@ -17,14 +17,4 @@ public class InstallationController {
     public ResponseEntity<InstallationEntity> getProductById(Long id) {
         return ResponseEntity.ok((InstallationEntity) service.findById(id).orElseThrow());
     }
-
-    @PostMapping("/installation/{productId}/{addressId}")
-    public ResponseEntity<InstallationEntity> createProduct(@PathVariable Long addressId, @PathVariable Long productId) {
-        return ResponseEntity.ok(service.schedule(addressId, productId));
-    }
-
-    @PatchMapping("/installation/{id}")
-    public ResponseEntity<InstallationEntity> createProduct(@PathVariable Long id) {
-        return ResponseEntity.ok(service.start(id));
-    }
 }
